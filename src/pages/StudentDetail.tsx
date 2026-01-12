@@ -346,7 +346,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                   <ReferenceLine y={8} stroke="#94a3b8" strokeDasharray="3 3" label={{ value: 'Obj: 8h', position: 'insideRight', fill: '#94a3b8', fontSize: 10 }} />
                 )}
                 <Bar dataKey={chartConfig.dataKey} radius={[4, 4, 0, 0]} barSize={timeRange === '1Y' ? 20 : 32}>
-                  {chartConfig.data.map((entry: any, index: number) => (
+                  {chartConfig.data.map((_entry: any, index: number) => (
                     <Cell 
                       key={`cell-${index}`} 
                       fill={chartConfig.barColor()} 
