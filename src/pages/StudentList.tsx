@@ -50,7 +50,7 @@ const StudentList: React.FC = () => {
           level: alumno['datos personales'].Nivel,
           turn: alumno['datos personales'].Turno,
           averageAttendance: alumno['datos personales'].Promedio,
-          totalHoursMonth: months[0]?.hourstotal || '0:00',
+        totalHoursMonth: months.at(-1)?.hourstotal ?? '0:00',
           months,
         };
       });

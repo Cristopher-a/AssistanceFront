@@ -53,7 +53,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
 }, [student]);
 
   const handleSaveAvg = async () => {
-    try {
+try {
       if (student) {
         const res =await fetch(`https://assistanceback-s8jr.vercel.app/subirpromedio`, {
           method: 'POST',
@@ -98,7 +98,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
         fullDate: day,
         value: parseInt(hours.split(':')[0]) + parseInt(hours.split(':')[1])/60, // convertir "HH:MM" a horas decimales
         rawHours: hours
-      }));
+  }));
 
       return {
         title: `Progreso Diario (${monthData.key.replace(/_/g, ' ')})`,
@@ -121,8 +121,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
       value: h + min / 60,
     };
   });
-
-  return {
+return {
     title: 'Tendencia Trimestral (Horas)',
     data: monthlyData,
     dataKey: 'value',
@@ -131,7 +130,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
     xLabel: 'Mes',
     showRefLine: false,
     barColor: () => '#3b82f6'
-  };
+ };
 }
     case '1Y': {
       // Todos los meses disponibles
@@ -167,8 +166,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
       };
   }
 }, [timeRange, student, selectedMonth]);
-
- if (!student) {
+if (!student) {
   return (
     <div className="flex flex-col items-center justify-center h-full py-20">
       <div className="w-12 h-12 border-4 border-slate-300 border-t-brand-500 rounded-full animate-spin mb-4"></div>
@@ -181,7 +179,6 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
     </div>
   );
 }
-
 
   return (
     <div className="space-y-6">
@@ -210,8 +207,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                 </span>
               </div>
             </div>
-
-            {/* Editable Average Widget */}
+   {/* Editable Average Widget */}
             <div className="flex flex-col items-end">
               <span className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-1">Promedio General</span>
               {isEditingAvg ? (
@@ -227,7 +223,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                   <button onClick={handleSaveAvg} className="p-1 bg-emerald-500 text-white rounded hover:bg-emerald-600">
                     <Save className="w-3 h-3" />
                   </button>
-                </div>
+   </div>
               ) : (
                 <div className="flex items-center gap-2">
                   <span className={`text-2xl font-bold ${student.averageAttendance >= 90 ? 'text-emerald-600' : 'text-amber-600'}`}>
@@ -239,7 +235,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                     <Edit2 className="w-3 h-3" />
                   </button>
                 </div>
-              )}
+     )}
             </div>
           </div>
 
@@ -267,6 +263,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                </div>
              </div>
           </div>
+         
         </div>
       </div>
 
@@ -344,7 +341,8 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                          />
                 {chartConfig.showRefLine && (
                   <ReferenceLine y={8} stroke="#94a3b8" strokeDasharray="3 3" label={{ value: 'Obj: 8h', position: 'insideRight', fill: '#94a3b8', fontSize: 10 }} />
-                )}
+
+      )}
                 <Bar dataKey={chartConfig.dataKey} radius={[4, 4, 0, 0]} barSize={timeRange === '1Y' ? 20 : 32}>
                   {chartConfig.data.map((_entry: any, index: number) => (
                     <Cell 
@@ -356,7 +354,7 @@ const [student, setStudent] = useState<Student | null>(studentFromState ?? null)
                 </Bar>
               </BarChart>
             </ResponsiveContainer>
-          </div>
+    </div>
         </div>
 
         {/* Monthly Performance Cards (Replacing Table) */}
