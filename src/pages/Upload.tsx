@@ -42,7 +42,7 @@ const Upload: React.FC = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await fetch("https://assistanceback-12o4.vercel.app/subir", {
+      const res = await fetch("https://assistanceback-gt17.vercel.app/subir", {
         method: "POST",
         body: formData,
       });
