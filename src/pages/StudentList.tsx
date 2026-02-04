@@ -44,7 +44,6 @@ const StudentList: React.FC = () => {
             key: mes,
             ...alumno[mes], // hoursweek, attendance, etc.
           }));
-
         return {
           id: index.toString(),
           name: key,
@@ -54,7 +53,7 @@ const StudentList: React.FC = () => {
           level: alumno['datos personales'].Nivel,
           turn: alumno['datos personales'].Turno,
           averageAttendance: alumno['datos personales'].Promedio,
-        totalHoursMonth: months.at(-1)?.hourstotal ?? '0:00',
+        totalHoursMonth: months[0].hourstotal ?? '0:00',
           months,
         };
       });
