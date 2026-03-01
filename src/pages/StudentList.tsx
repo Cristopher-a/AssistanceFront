@@ -11,13 +11,27 @@ interface Student {
   averageAttendance: number;
   totalHoursMonth: string;
   id: string;
+  latestMonthName: string;
 }
 const StudentList: React.FC = () => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTeam, setSelectedTeam] = useState<TeamType | 'All'>('All');
   const [selectedArea, setSelectedArea] = useState<string>('All');
-
+const mesesMap: Record<string, number> = {
+  january: 0,
+  february: 1,
+  march: 2,
+  april: 3,
+  may: 4,
+  june: 5,
+  july: 6,
+  august: 7,
+  september: 8,
+  october: 9,
+  november: 10,
+  december: 11
+};
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,15 +49,17 @@ const StudentList: React.FC = () => {
       const studentsArray: Student[] = Object.keys(data).map((key, index) => {
         const alumno = data[key];
 
-        // Extraer meses
         const months = Object.keys(alumno)
-          .filter(m => m !== 'datos personales')
-          .sort()
-          .reverse()
-          .map(mes => ({
-            key: mes,
-            ...alumno[mes], // hoursweek, attendance, etc.
-          }));
+  .filter(m => m !== 'datos personales')
+  .map(mes => {
+    const [mesNombre, year] = mes.toLowerCase().split("_");
+    return {
+      key: mes,
+      ...alumno[mes],
+      date: new Date(Number(year), mesesMap[mesNombre])
+    };
+  })
+  .sort((a, b) => b.date.getTime() - a.date.getTime());
         return {
           id: index.toString(),
           name: key,
@@ -54,6 +70,8 @@ const StudentList: React.FC = () => {
           turn: alumno['datos personales'].Turno,
           averageAttendance: alumno['datos personales'].Promedio,
         totalHoursMonth: months[0].hourstotal ?? '0:00',
+latestMonthName: months[0]?.key.split("_")[0] ?? 'Sin datos',
+        
           months,
         };
       });
@@ -216,8 +234,9 @@ const StudentList: React.FC = () => {
                 <div className="rounded-lg p-3 border border-slate-200 bg-white">
                   <div className="flex items-center gap-1.5 mb-1">
                     <Clock className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="text-xs font-semibold text-slate-500 uppercase">Horas Mes</span>
-                  </div>
+                 <span className="text-xs font-semibold text-slate-500 ">
+  {student.latestMonthName}
+</span>  </div>
                   <span className="text-xl font-bold text-slate-700">
                     {student.totalHoursMonth}h
                   </span>
