@@ -48,7 +48,7 @@ const mesesMap: Record<string, number> = {
       
       const studentsArray: Student[] = Object.keys(data).map((key, index) => {
         const alumno = data[key];
-
+      
         const months = Object.keys(alumno)
   .filter(m => m !== 'datos personales')
   .map(mes => {
@@ -75,7 +75,16 @@ latestMonthName: months[0]?.key.split("_")[0] ?? 'Sin datos',
           months,
         };
       });
+      const timeToMinutes = (time: string): number => {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+};
+      studentsArray.sort((a, b) => {
+  const aMinutes = timeToMinutes(a.totalHoursMonth || "0:00");
+  const bMinutes = timeToMinutes(b.totalHoursMonth || "0:00");
 
+  return bMinutes - aMinutes; // de mayor a menor
+});
       setStudents(studentsArray);
     } catch (err) {
       console.error('Error al cargar alumnos:', err);
